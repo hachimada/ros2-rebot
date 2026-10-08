@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Fast DDS の共通設定。ホストと Distrobox の両方から参照する。 -->
+<profiles xmlns="http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles">
+  <!-- 使用するトランスポートを定義する。下の participant から ID で参照する。 -->
+  <transport_descriptors>
+    <transport_descriptor>
+      <transport_id>udp_transport</transport_id>
+      <!-- IPv4 の UDP を使用。アプリ独自の UDP JSON ではなく、DDS の通信を UDP に載せる。 -->
+      <type>UDPv4</type>
+    </transport_descriptor>
+  </transport_descriptors>
+  <!-- 既定プロファイルとして ROS 2 の DDS participant に適用する。 -->
+  <participant profile_name="udp_participant" is_default_profile="true">
+    <rtps>
+      <userTransports><transport_id>udp_transport</transport_id></userTransports>
+      <!-- 組み込みトランスポートを無効にし、共有メモリを含まない上記 UDP のみを使う。 -->
+      <useBuiltinTransports>false</useBuiltinTransports>
+    </rtps>
+  </participant>
+</profiles>
